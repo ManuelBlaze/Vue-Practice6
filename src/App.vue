@@ -3,11 +3,34 @@
     <header>
       <h1>Vue Practice #6 (Components)</h1>
     </header>
+
+    <section>
+      <user-data @set-user="setUser" />
+    </section>
+
+    <p v-if="!isUser"><strong> Add the user info! </strong></p>
   </section>
 </template>
 
 <script>
-export default {};
+import UserData from './components/UserData.vue';
+
+export default {
+  components: { UserData },
+  data() {
+    return { user: {} };
+  },
+  computed: {
+    isUser() {
+      return !Object.keys(this.user).length === 0;
+    },
+  },
+  methods: {
+    setUser(user) {
+      this.user = user;
+    },
+  },
+};
 </script>
 
 <style>
