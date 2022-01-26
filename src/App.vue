@@ -8,22 +8,22 @@
       <user-data @set-user="setUser" />
     </section>
 
-    <p v-if="!isUser"><strong> Add the user info! </strong></p>
+    <p v-if="Object.keys(user).length === 0">
+      <strong> Add the user info! </strong>
+    </p>
+
+    <active-user v-else v-bind="user" />
   </section>
 </template>
 
 <script>
+import ActiveUser from './components/ActiveUser.vue';
 import UserData from './components/UserData.vue';
 
 export default {
-  components: { UserData },
+  components: { UserData, ActiveUser },
   data() {
     return { user: {} };
-  },
-  computed: {
-    isUser() {
-      return !Object.keys(this.user).length === 0;
-    },
   },
   methods: {
     setUser(user) {
@@ -102,13 +102,7 @@ p {
   margin: 1rem 0;
 }
 
-#app ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-#app li,
+#activeUser,
 #app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
